@@ -3,6 +3,9 @@
 ## Overview
 The **Feedback Processor AI Agent** is an AI-powered system that processes customer feedback based on API user instructions. It consists of two Lambda-based agents that analyze and categorize feedback while ensuring compliance with predefined guardrails.
 
+![Cloud Architecture](./src/assets/AWS-Architecture-Diagram.svg)
+
+
 ## Architecture
 
 ### 1. **Guardrail Agent**
@@ -34,9 +37,6 @@ The **Feedback Processor AI Agent** is an AI-powered system that processes custo
   - Sends results to the WebSocket connection using `connection_id`.
 
 ## Cloud Architecture
-Below is the cloud architecture diagram illustrating the workflow of the system:
-
-![Cloud Architecture](./feedback-processing-agent-aws-architecture.svg)
 
 ## AWS Infrastructure
 - **AWS Lambda Functions:** Guardrail, Task Executor, Send Response
@@ -73,10 +73,11 @@ wss://7q3r72lbzc.execute-api.ap-south-1.amazonaws.com/production/
 ### Sample API Request:
 ```json
 {
-    "action": "process",
-    "instructions": "Categorize the topic and analyze the sentiment",
-    "feedback_id": "12345",
-    "feedback_text": "Amazing product but checkout process is difficult"
+    "action":"process",
+    "instructions":"Categorize the topic and analyse the sentiment",
+    "feedback_id":"12345",
+    "feedback_text":"Amazing product but checkout process is difficult",
+    "debug": true
 }
 ```
 
@@ -84,18 +85,15 @@ wss://7q3r72lbzc.execute-api.ap-south-1.amazonaws.com/production/
 1. **Create Virtual Environment & Install Dependencies**
 ```sh
 uv venv
+```
+```sh
 uv sync
 ```
+
 2. **Set Environment Variables**
 - Define required variables in `.env` file.
 
-3. **Deploy AWS Infrastructure using Terraform**
-- Ensure Terraform is installed and configured with AWS credentials.
-- Apply infrastructure changes:
-```sh
-terraform init
-terraform apply
-```
+
 
 ## Future Improvements
 - Implement more robust instruction validation for Guardrail Agent.
